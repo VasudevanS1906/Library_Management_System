@@ -2,36 +2,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structure for book details
+
 typedef struct Book {
     char title[100];
     char author[100];
     int bookID;
-    int isBorrowed; // 0 for available, 1 for borrowed
+    int isBorrowed; 
     struct Book* next;
 } Book;
 
-// Structure for member details
+
 typedef struct Member {
     char name[100];
     int memberID;
     struct Member* next;
 } Member;
 
-// Union for borrowing details
+
 typedef union BorrowDetails {
     Book* borrowedBook;
     Member* borrowedMember;
 } BorrowDetails;
 
-// Structure for borrowing record
+
 typedef struct BorrowRecord {
     BorrowDetails details;
-    int borrowType; // 0 for book, 1 for member
+    int borrowType; 
     struct BorrowRecord* next;
 } BorrowRecord;
 
-// Function prototypes
+
 Book* createBook(char* title, char* author, int bookID);
 Member* createMember(char* name, int memberID);
 BorrowRecord* createBorrowRecord(BorrowDetails details, int borrowType);
@@ -44,7 +44,7 @@ void borrowBook(Book* book, Member* member, BorrowRecord** borrowHead) {
         details.borrowedBook = book;
         BorrowRecord* record = createBorrowRecord(details, 0);
         addBorrowRecord(borrowHead, record);
-        book->isBorrowed = 1; // Mark the book as borrowed
+        book->isBorrowed = 1; 
     }
 }
 
@@ -74,29 +74,29 @@ void printBorrowRecords(BorrowRecord* head) {
 
 
 
-// Function prototypes
+
 Book* createBook(char* title, char* author, int bookID);
 Member* createMember(char* name, int memberID);
 BorrowRecord* createBorrowRecord(BorrowDetails details, int borrowType);
 
-// Stack operations (LIFO)
+
 void pushBook(Book** stack, Book* book);
 Book* popBook(Book** stack);
 void pushMember(Member** stack, Member* member);
 Member* popMember(Member** stack);
 
-// Queue operations (FIFO)
+
 void enqueueBook(Book** front, Book** rear, Book* book);
 Book* dequeueBook(Book** front, Book** rear);
 void enqueueMember(Member** front, Member** rear, Member* member);
 Member* dequeueMember(Member** front, Member** rear);
 
-// Linked list operations
+
 void addBook(Book** head, Book* book);
 void addMember(Member** head, Member* member);
 void addBorrowRecord(BorrowRecord** head, BorrowRecord* record);
 
-// Helper functions
+
 void printBooks(Book* head);
 void printMembers(Member* head);
 void printBorrowRecords(BorrowRecord* head);
@@ -113,18 +113,17 @@ void returnBook(Book* book, BorrowRecord** borrowHead);
 
 
 
-// Function to create a new book
+
 Book* createBook(char* title, char* author, int bookID) {
     Book* newBook = (Book*)malloc(sizeof(Book));
     strcpy(newBook->title, title);
     strcpy(newBook->author, author);
     newBook->bookID = bookID;
-    newBook->isBorrowed = 1; // Initially set to available
+    newBook->isBorrowed = 1; 
     newBook->next = NULL;
     return newBook;
 }
 
-// Function to create a new member
 Member* createMember(char* name, int memberID) {
     Member* newMember = (Member*)malloc(sizeof(Member));
     strcpy(newMember->name, name);
@@ -133,7 +132,7 @@ Member* createMember(char* name, int memberID) {
     return newMember;
 }
 
-// Function to create a new borrow record
+
 BorrowRecord* createBorrowRecord(BorrowDetails details, int borrowType) {
     BorrowRecord* newRecord = (BorrowRecord*)malloc(sizeof(BorrowRecord));
     newRecord->details = details;
@@ -142,7 +141,7 @@ BorrowRecord* createBorrowRecord(BorrowDetails details, int borrowType) {
     return newRecord;
 }
 
-// Function to add a book to the linked list
+
 void addBook(Book** head, Book* book) {
     Book* current = *head;
     if (*head == NULL) {
@@ -155,7 +154,7 @@ void addBook(Book** head, Book* book) {
     current->next = book;
 }
 
-// Function to add a member to the linked list
+
 void addMember(Member** head, Member* member) {
     Member* current = *head;
     if (*head == NULL) {
@@ -168,7 +167,7 @@ void addMember(Member** head, Member* member) {
     current->next = member;
 }
 
-// Function to add a borrow record to the linked list
+
 void addBorrowRecord(BorrowRecord** head, BorrowRecord* record) {
     BorrowRecord* current = *head;
     if (*head == NULL) {
@@ -188,7 +187,7 @@ Book* searchBookByTitle(Book* head, char* title) {
         }
         current = current->next;
     }
-    return NULL; // Book not found
+    return NULL; 
 }
 
 Book* searchBookByAuthor(Book* head, char* author) {
@@ -199,7 +198,7 @@ Book* searchBookByAuthor(Book* head, char* author) {
         }
         current = current->next;
     }
-    return NULL; // Book not found
+    return NULL; 
 }
 
 Book* searchBookByID(Book* head, int bookID) {
@@ -210,7 +209,7 @@ Book* searchBookByID(Book* head, int bookID) {
         }
         current = current->next;
     }
-    return NULL; // Book not found
+    return NULL; 
 }
 
 Member* searchMemberByName(Member* head, char* name) {
@@ -221,7 +220,7 @@ Member* searchMemberByName(Member* head, char* name) {
         }
         current = current->next;
     }
-    return NULL; // Member not found
+    return NULL; 
 }
 
 Member* searchMemberByID(Member* head, int memberID) {
@@ -232,7 +231,7 @@ Member* searchMemberByID(Member* head, int memberID) {
         }
         current = current->next;
     }
-    return NULL; // Member not found
+    return NULL; 
 }
 
 void updateBookTitle(Book* book, char* newTitle) {
@@ -267,7 +266,7 @@ void returnBook(Book* book, BorrowRecord** borrowHead) {
                     prev->next = current->next;
                 }
                 free(current);
-                book->isBorrowed = 0; // Mark the book as available
+                book->isBorrowed = 0; 
                 return;
             }
             prev = current;
@@ -278,12 +277,12 @@ void returnBook(Book* book, BorrowRecord** borrowHead) {
 
 
 int main() {
-    // Initialize book, member, and borrow record linked lists
+    
     Book* bookHead = NULL;
     Member* memberHead = NULL;
     BorrowRecord* borrowHead = NULL;
 
-    // Example usage
+    
     Book* book1 = createBook("The Great Gatsby", "F. Scott Fitzgerald", 1);
     Book* book2 = createBook("To Kill a Mockingbird", "Harper Lee", 2);
     addBook(&bookHead, book1);
@@ -294,44 +293,41 @@ int main() {
     addMember(&memberHead, member1);
     addMember(&memberHead, member2);
 
-    // Create Borrow Record 1: Borrow Book 1 from Member 1
+    
     BorrowDetails details1;
     details1.borrowedBook = book1;
-    BorrowRecord* borrowRecord1 = createBorrowRecord(details1, 0); // 0 for book borrow
+    BorrowRecord* borrowRecord1 = createBorrowRecord(details1, 0); 
     addBorrowRecord(&borrowHead, borrowRecord1);
 
-    // Create Borrow Record 2: Borrow Book 2 from Member 2
+    
     BorrowDetails details2;
     details2.borrowedBook = book2;
-    BorrowRecord* borrowRecord2 = createBorrowRecord(details2, 0); // 0 for book borrow
+    BorrowRecord* borrowRecord2 = createBorrowRecord(details2, 0); 
     addBorrowRecord(&borrowHead, borrowRecord2);
   
-    // Search for books and members
+    
     Book* foundBook = searchBookByTitle(bookHead, "The Great Gatsby");
     Member* foundMember = searchMemberByName(memberHead, "Jane Smith");
 
-    // Update book and member details
+    
     updateBookTitle(book1, "The Great Gatsby (New Edition)");
     updateMemberName(member2, "Jane Miller");
 
-    // Borrow and return books
+    
     borrowBook(book1, member1, &borrowHead);
     returnBook(book1, &borrowHead);
 
-    // Print book list
+    
     printf("Book List:\n");
     printBooks(bookHead);
 
-    // Print member list
+    
     printf("\nMember List:\n");
     printMembers(memberHead);
 
-    // Print borrow records
+    
     printf("\nBorrow Records:\n");
     printBorrowRecords(borrowHead);
 
-    return 0;
-  
-    
-    
+    return 0;    
 }
