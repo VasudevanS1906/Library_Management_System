@@ -56,8 +56,7 @@ The program is a library management system that utilizes linked lists to store b
 ## Borrowing Management
 - `createBorrowRecord(BorrowDetails details, int borrowType)`: Creates a new borrow record with the given borrow details and borrow type.
 - `addBorrowRecord(BorrowRecord** head, BorrowRecord* record)`: Adds a new borrow record to the linked list of borrow records.
-- `borrowBook(Book* book, Member* member, BorrowRecord** borrowHead)`: Handles the process of borrowing a book by a member.
-- `
+- `borrowBook(Book* book, Member* member, BorrowRecord** borrowHead)`: Handles the process of borrowing a book by a member. 
 
 # Support and Contact
 
