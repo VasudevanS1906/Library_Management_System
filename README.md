@@ -1,0 +1,2 @@
+# Library_Management_System in C
+The program is a library management system that utilizes linked lists to store book and member information, along with records of book borrowings. Users can create, update, and display book and member details, borrow and return books, and view lists of books, members, and borrow records. To showcase borrow records, users should create borrow records by borrowing books from members. The system provides basic functionality for managing a library's operations efficiently.
